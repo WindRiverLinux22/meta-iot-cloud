@@ -30,3 +30,11 @@ EXTRA_OECMAKE += "\
     -DBUILD_TESTING=OFF \
     -DCMAKE_PREFIX_PATH=${RECIPE_SYSROOT}/usr \
 "
+
+# Workaround compile failure:
+# |pq-crypto/kyber_r3/kyber512r3_polyvec_avx2.c:91:5: error: 'poly_compress10'
+# accessing 320 bytes in a region of size 130 [-Werror=stringop-overflow=]
+DEBUG_OPTIMIZATION:remove = "-Og"
+DEBUG_OPTIMIZATION:append = " -O2"
+BUILD_OPTIMIZATION:remove = "-Og"
+BUILD_OPTIMIZATION:append = " -O2"
